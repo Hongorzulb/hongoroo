@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exercise 3</title>
+    <style>
+        .redbox{
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+        @media only screen and (max-width: 800px){
+            .redbox{
+                border-radius: 50px;
+            }
+        }
+        @media only screen and (max-width: 600px){
+            .redbox{
+                border-radius: 360px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="redbox"></div>
+</body>
+</html>
