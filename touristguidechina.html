@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Discover China — Tourist Guide</title>
+
+  <!-- Google fonts: pairing for a modern body + stylized heading (Chinese-feel) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --red:#c21a12;
+      --gold:#f0b43b;
+      --ink:#2b2b2b;
+      --paper:#fff8ef;
+      --muted:#6b6b6b;
+      --max-width:1100px;
+      --radius:12px;
+      --accent-gradient: linear-gradient(135deg, rgba(194,26,18,0.95), rgba(240,180,59,0.95));
+      --shadow: 0 10px 30px rgba(43,43,43,0.12);
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(60% 40% at 10% 10%, rgba(240,180,59,0.03), transparent 10%),
+        linear-gradient(180deg, #fff 0%, #fff8f2 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    /* Container */
+    .wrap{
+      max-width:var(--max-width);
+      margin:28px auto;
+      padding:28px;
+    }
+
+    /* Header / hero */
+    header{
+      background: var(--paper);
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow: var(--shadow);
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+    .logo {
+      width:92px;
+      height:92px;
+      flex:0 0 92px;
+      border-radius:14px;
+      background: var(--accent-gradient);
+      color:white;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 6px 18px rgba(194,26,18,0.25);
+      font-weight:700;
+      font-family: "Playfair Display", serif;
+      transform:rotate(-5deg);
+    }
+    .logo small{font-size:12px;opacity:0.9;display:block;margin-top:-6px}
+
+    .title {
+      display:flex;
+      flex-direction:column;
+    }
+    .title h1{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      font-size:28px;
+      letter-spacing:0.4px;
+      color:var(--red);
+    }
+    .title p{margin:6px 0 0;color:var(--muted)}
+
+    /* Nav quick links */
+    nav{
+      margin-left:auto;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .chip{
+      background:transparent;
+      border:1px solid rgba(43,43,43,0.06);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:14px;
+      cursor:pointer;
+      transition:.18s transform, .18s box-shadow;
+    }
+    .chip:hover{transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+
+    /* Main layout */
+    main{display:grid;grid-template-columns: 1fr 340px;gap:22px;margin-top:22px}
+    @media (max-width:980px){
+      main{grid-template-columns:1fr}
+      .logo{display:none}
+    }
+
+    /* Left column content cards */
+    .card{
+      background:white;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+
+    /* Hero image area (placeholder) */
+    .hero{
+      border-radius:10px;
+      overflow:hidden;
+      position:relative;
+      min-height:220px;
+      display:grid;
+      grid-template-columns:1fr 340px;
+    }
+    .hero .main-img{
+      background:
+        linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.06)),
+        url('https://placehold.co/1200x600?text=Great+Wall+of+China') center/cover no-repeat;
+      min-height:220px;
+      flex:1;
+    }
+    .hero .side{
+      background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
+      padding:16px;
+      width:320px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      justify-content:center;
+    }
+    .hero h2{margin:0;color:var(--red);font-family:"Playfair Display",serif}
+
+    /* Section headings with ink-stroke style */
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .section-title h3{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      color:var(--red);
+      font-size:20px;
+    }
+    .seal {
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:8px;
+      background:linear-gradient(180deg,var(--gold), #e6a92c);
+      color:white;
+      font-weight:700;
+      font-family:"Playfair Display",serif;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    /* Places grid */
+    .places{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:12px;
+    }
+    @media (max-width:700px){ .places{grid-template-columns:1fr} }
+    .place{
+      background:linear-gradient(180deg,#fff,#fffdf9);
+      border-radius:10px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      border:1px solid rgba(0,0,0,0.04);
+    }
+    .place .thumb{
+      height:110px;
+      background-size:cover;
+      background-position:center;
+    }
+    .place .meta{padding:10px}
+    .place h4{margin:0 0 6px;font-size:16px;color:var(--ink)}
+    .place p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Right column / sidebar */
+    aside .sticky{
+      position:sticky;
+      top:28px;
+    }
+    .itinerary{display:flex;flex-direction:column;gap:10px}
+    .it-item{display:flex;gap:12px;align-items:flex-start}
+    .it-item .day{
+      width:44px;height:44px;border-radius:8px;background:var(--red);color:white;display:grid;place-items:center;font-weight:700;
+      box-shadow:0 6px 12px rgba(178,20,20,0.16)
+    }
+    .it-item .desc{font-size:14px;color:var(--muted)}
+
+    /* Tips list */
+    .tips{display:grid;gap:10px;font-size:14px}
+    .tip{display:flex;gap:10px;align-items:flex-start}
+    .icon{
+      width:36px;height:36px;border-radius:8px;background:linear-gradient(180deg,#fff,#fffef8);display:grid;place-items:center;border:1px solid rgba(0,0,0,0.04)
+    }
+
+    /* Footer */
+    footer{
+      margin-top:22px;
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* Small decorative clouds (svg) */
+    .clouds{opacity:0.12;position:absolute;left:12px;top:12px;pointer-events:none}
+
+    /* Buttons / CTA */
+    .btn{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:8px;
+      background:var(--red);
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow:0 8px 20px rgba(194,26,18,0.18);
+    }
+
+    /* Accessibility focus */
+    .chip:focus, .btn:focus {outline:3px solid rgba(240,180,59,0.25);outline-offset:3px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header aria-label="Discover China header">
+      <div class="brand" role="img" aria-label="Red and gold stylized logo">
+        <div class="logo" aria-hidden="true">
+          CN
+          <small style="font-size:10px;opacity:0.9">Guide</small>
+        </div>
+        <div class="title">
+          <h1>Discover China</h1>
+          <p>Your compact travel guide — culture, places, food & practical tips (in English)</p>
+        </div>
+      </div>
+
+      <nav aria-label="Quick links">
+        <button class="chip" onclick="scrollToSection('must-see')">Must-see</button>
+        <button class="chip" onclick="scrollToSection('food')">Food</button>
+        <button class="chip" onclick="scrollToSection('itinerary')">Itinerary</button>
+        <a class="chip" href="#tips">Travel tips</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- LEFT: main content -->
+      <div>
+        <!-- Hero / overview -->
+        <section class="card hero" aria-labelledby="overview-title">
+          <div class="main-img" role="img" aria-label="Great Wall of China photo placeholder"></div>
+
+          <aside class="side" aria-label="Quick facts">
+            <h2 id="overview-title">China at a glance</h2>
+            <p style="margin:0;color:var(--muted)">
+              Area: ~9.6 million km² • Population: 1.4+ billion • Languages: Mandarin (standard), many regional languages
+            </p>
+            <p style="margin:6px 0 0;color:var(--muted)">Best seasons: Spring (Apr–May) & Autumn (Sep–Oct) for mild weather and clear skies.</p>
+            <div style="margin-top:12px">
+              <a class="btn" href="#itinerary">Start a 7-day plan</a>
+            </div>
+          </aside>
+        </section>
+
+        <!-- Must-see places -->
+        <section id="must-see" class="card" aria-labelledby="must-see-title">
+          <div class="section-title">
+            <div class="seal" aria-hidden="true">福</div>
+            <h3 id="must-see-title">Must-see & Iconic Places</h3>
+          </div>
+
+          <div class="places" role="list">
+            <article class="place" role="listitem" aria-labelledby="p1">
+              <div class="thumb" style="background-image:url('https://placehold.co/600x400?text=Forbidden+City');"></div>
+              <div class="meta">
+                <h4 id="p1">Beijing — Forbidden City & the Great Wall</h4>
+                <p>Ancient imperial palaces, Hutongs (historic lanes), and easy access to the Badaling & Mutianyu sections of the Great Wall.</p>
+              </div>
+            </article>
+
+            <article class="place" role="listitem" aria-labelledby="p2">
+              <div class="thumb" style="background-image:url('https://placehold.co/600x400?text=Shanghai+Bund');"></div>
+              <div class="meta">
+                <h4 id="p2">Shanghai — Bund & modern skyline</h4>
+                <p>Futuristic skyline, colonial Bund, Yuyuan Garden, and vibrant food & nightlife.</p>
+              </div>
+            </article>
+
+            <article class="place" role="listitem" aria-labelledby="p3">
+              <div class="thumb" style="background-image:url('https://placehold.co/600x400?text=Terracotta+Army');"></div>
+              <div class="meta">
+                <h4 id="p3">Xi'an — Terracotta Army</h4>
+                <p>Home of the Terracotta Warriors; explore ancient city walls and Muslim Quarter snacks.</p>
+              </div>
+            </article>
+
+            <article class="place" role="listitem" aria-labelledby="p4">
+              <div class="thumb" style="background-image:url('https://placehold.co/600x400?text=Guilin+Li+River');"></div>
+              <div class="meta">
+                <h4 id="p4">Guilin & Yangshuo — Karst landscapes</h4>
+                <p>Iconic limestone peaks, scenic Li River cruises, cycling through rice terraces and riverside villages.</p>
+              </div>
+            </article>
+
+            <article class="place" role="listitem" aria-labelledby="p5">
+              <div class="thumb" style="background-image:url('https://placehold.co/600x400?text=Chengdu+Pandas');"></div>
+              <div class="meta">
+                <h4 id="p5">Chengdu — Giant pandas & Sichuan cuisine</h4>
+                <p>Visit panda reserves and enjoy world-famous spicy Sichuan dishes (and tea culture).</p>
+              </div>
+            </article>
+
+            <article class="place" role="listitem" aria-labelledby="p6">
+              <div class="thumb" style="background-image:url('https://placehold.co/600x400?text=Hong+Kong+Skyline');"></div>
+              <div class="meta">
+                <h4 id="p6">Hong Kong — Harbor & urban culture</h4>
+                <p>Harbor views, street food, markets, and easy day trips to outlying islands.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Food section -->
+        <section id="food" class="card" aria-labelledby="food-title">
+          <div class="section-title">
+            <div class="seal" aria-hidden="true">食</div>
+            <h3 id="food-title">Food & Must-try Dishes</h3>
+          </div>
+
+          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.6">
+            <li><strong>Peking Duck</strong> — Beijing specialty (crispy skin, pancakes, hoisin) </li>
+            <li><strong>Dumplings (jiaozi / xiaolongbao)</strong> — North & East (try xiaolongbao in Shanghai)</li>
+            <li><strong>Sichuan Hot Pot & Mapo Tofu</strong> — Spicy, numbing flavors from Sichuan peppercorns</li>
+            <li><strong>Cantonese dim sum</strong> — Small plates & tea; popular in Guangdong & Hong Kong</li>
+            <li><strong>Street snacks</strong> — Jianbing (savory pancake), skewers, candied fruit, and regional specialties</li>
+          </ul>
+        </section>
+
+        <!-- Culture & etiquette -->
+        <section class="card" aria-labelledby="culture-title">
+          <div class="section-title">
+            <div class="seal" aria-hidden="true">礼</div>
+            <h3 id="culture-title">Culture & Etiquette (short guide)</h3>
+          </div>
+
+          <p style="color:var(--muted);margin:0 0 8px">A few practical pointers to travel respectfully and smoothly:</p>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.6">
+            <li><strong>Greetings:</strong> A handshake is common in urban areas; keep politeness and modesty.</li>
+            <li><strong>Personal space:</strong> Cities are busy — be patient in queues and public transport.</li>
+            <li><strong>Photography:</strong> Ask before photographing people (especially in rural areas).</li>
+            <li><strong>Cash & apps:</strong> Cash is still useful; mobile payments (WeChat/Alipay) are ubiquitous — prepare alternatives if you can't use them.</li>
+            <li><strong>Language:</strong> Learn a few Mandarin phrases; maps/screenshots help — many signs in big cities are bilingual.</li>
+          </ul>
+        </section>
+
+        <!-- Resources & links (editable) -->
+        <section class="card" aria-labelledby="resources-title">
+          <div class="section-title">
+            <div class="seal" aria-hidden="true">旅</div>
+            <h3 id="resources-title">Practical Resources</h3>
+          </div>
+
+          <p style="margin:0;color:var(--muted)">
+            Replace the placeholders below with up-to-date links before travel:
+          </p>
+
+          <ul style="margin-top:8px;color:var(--muted);line-height:1.6">
+            <li>Local transport apps & metro maps (city-specific)</li>
+            <li>Official tourist information centers in each city</li>
+            <li>Health & safety: check local advisories and required documents</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <aside>
+        <div class="sticky">
+          <section class="card" id="itinerary" aria-labelledby="itinerary-title">
+            <div class="section-title">
+              <div class="seal" aria-hidden="true">旅</div>
+              <h3 id="itinerary-title">7-day sample itinerary</h3>
+            </div>
+
+            <div class="itinerary">
+              <div class="it-item">
+                <div class="day">Day 1</div>
+                <div class="desc"><strong>Beijing:</strong> Forbidden City, Tiananmen Square, Hutong walk.</div>
+              </div>
+              <div class="it-item">
+                <div class="day">Day 2</div>
+                <div class="desc"><strong>Beijing:</strong> Great Wall (Mutianyu), Temple of Heaven.</div>
+              </div>
+              <div class="it-item">
+                <div class="day">Day 3</div>
+                <div class="desc"><strong>Xi'an:</strong> High-speed train to Xi'an, city wall & Muslim Quarter.</div>
+              </div>
+              <div class="it-item">
+                <div class="day">Day 4</div>
+                <div class="desc"><strong>Xi'an:</strong> Terracotta Army, evening train/flight to Chengdu.</div>
+              </div>
+              <div class="it-item">
+                <div class="day">Day 5</div>
+                <div class="desc"><strong>Chengdu:</strong> Panda Reserve, Sichuan cuisine tasting.</div>
+              </div>
+              <div class="it-item">
+                <div class="day">Day 6</div>
+                <div class="desc"><strong>Guilin/Yangshuo:</strong> Li River cruise, karst scenery (may require internal flight).</div>
+              </div>
+              <div class="it-item">
+                <div class="day">Day 7</div>
+                <div class="desc"><strong>Shanghai or Hong Kong:</strong> Finish with city highlights & evening skyline views.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" id="tips" aria-labelledby="tips-title">
+            <div class="section-title">
+              <div class="seal" aria-hidden="true">安</div>
+              <h3 id="tips-title">Travel tips</h3>
+            </div>
+
+            <div class="tips">
+              <div class="tip">
+                <div class="icon">¥</div>
+                <div><strong>Currency:</strong> The Chinese currency is the yuan (CNY). Small shops may prefer cash.</div>
+              </div>
+
+              <div class="tip">
+                <div class="icon">📶</div>
+                <div><strong>Connectivity:</strong> Consider a local SIM or portable Wi-Fi. Many foreign websites/apps may be limited — plan alternatives.</div>
+              </div>
+
+              <div class="tip">
+                <div class="icon">🕒</div>
+                <div><strong>Timing:</strong> Peak travel during Golden Week (early October) and Chinese New Year — book in advance.</div>
+              </div>
+
+              <div class="tip">
+                <div class="icon">🧾</div>
+                <div><strong>Receipts & documentation:</strong> Keep copies of bookings and IDs; many hotels require ID at check-in.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="notes-title">
+            <div class="section-title">
+              <div class="seal" aria-hidden="true">注</div>
+              <h3 id="notes-title">Notes & editable items</h3>
+            </div>
+            <p style="color:var(--muted);margin:0">
+              This guide is a starting template. Replace placeholder images with real photos, verify transport times, and check local rules (e.g., visas, health entry requirements) before traveling.
+            </p>
+          </section>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p>Made with red & gold — a visual nod to Chinese design. All content editable. © Discover China Guide</p>
+    </footer>
+  </div>
+
+  <!-- Decorative (non-critical) SVG clouds placed once -->
+  <svg class="clouds" width="220" height="80" viewBox="0 0 220 80" fill="none" aria-hidden="true">
+    <g opacity="0.7" transform="translate(0,8)">
+      <path d="M24 44c-7-12 6-28 24-20 12-10 34-8 44 6 10-4 26 0 34 10 12 14 6 28-6 34H24c0 0-4-10-4-30z" fill="#000"/>
+    </g>
+  </svg>
+
+  <script>
+    // Simple helper to scroll to sections
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      // briefly highlight
+      el.style.transition = 'box-shadow 0.6s ease';
+      el.style.boxShadow = '0 10px 30px rgba(194,26,18,0.12)';
+      setTimeout(()=>el.style.boxShadow='', 1200);
+    }
+
+    // Keyboard-accessible focus for chips
+    document.querySelectorAll('.chip').forEach(btn=>{
+      btn.setAttribute('tabindex','0');
+      btn.addEventListener('keydown', e=>{
+        if(e.key==='Enter' || e.key===' ') btn.click();
+      });
+    });
+  </script>
+</body>
+</html>
